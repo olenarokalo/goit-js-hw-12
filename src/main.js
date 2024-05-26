@@ -83,9 +83,9 @@ const onLoadMorePress = async (event, searchQuery) => {
     lightbox.refresh();
     totalPages = Math.ceil(totalHits / perPage);
 
-    console.log(photosCurrentPage);
-
-    if (photosCurrentPage === totalPages) {
+    if (photosCurrentPage < totalPages) {
+      loadMoreBtn.style.display = 'block';
+    } else {
       loadMoreBtn.style.display = 'none';
       loadMoreBtn.removeEventListener('click', onLoadMorePress);
       iziToast.info({
