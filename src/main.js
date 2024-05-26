@@ -13,7 +13,7 @@ const searchForm = document.querySelector('.form');
 const loadMoreBtn = document.querySelector('.js-load-more-btn');
 
 loadMoreBtn.style.display = 'none';
-let newCurrentPage = 1;
+let photosCurrentPage = 1;
 let totalPages = 0;
 let searchQuery = '';
 
@@ -26,7 +26,7 @@ searchForm.addEventListener('submit', async e => {
   e.preventDefault();
   loader.style.display = 'inline-block';
 
-  newCurrentPage = 1;
+  photosCurrentPage = 1;
 
   searchQuery = e.target.elements.search.value.trim();
   if (searchQuery === '') {
@@ -43,7 +43,7 @@ searchForm.addEventListener('submit', async e => {
   galleryElement.innerHTML = '';
 
   try {
-    const imagesData = await fetchImages(searchQuery, newCurrentPage);
+    const imagesData = await fetchImages(searchQuery, photosCurrentPage);
     if (!imagesData.total) {
       iziToast.error({
         title: 'Error',
@@ -55,7 +55,7 @@ searchForm.addEventListener('submit', async e => {
       galleryElement.innerHTML = createGalleryItem(imagesData.hits);
       lightbox.refresh();
       totalPages = Math.ceil(imagesData.totalHits / perPage);
-      if (newCurrentPage < totalPages) {
+      if (photosCurrentPage < totalPages) {
         loadMoreBtn.style.display = 'block';
       } else {
         loadMoreBtn.style.display = 'none';
@@ -72,13 +72,20 @@ searchForm.addEventListener('submit', async e => {
 const onLoadMorePress = async (event, searchQuery) => {
   try {
     loader.style.display = 'inline-block';
-    newCurrentPage++;
-    const { hits, totalHits } = await fetchImages(searchQuery, newCurrentPage);
+    photosCurrentPage++;
+
+    const { hits, totalHits } = await fetchImages(
+      searchQuery,
+      photosCurrentPage
+    );
+
     galleryElement.insertAdjacentHTML('beforeend', createGalleryItem(hits));
     lightbox.refresh();
     totalPages = Math.ceil(totalHits / perPage);
 
-    if (newCurrentPage === totalPages) {
+    console.log(photosCurrentPage);
+
+    if (photosCurrentPage === totalPages) {
       loadMoreBtn.style.display = 'none';
       loadMoreBtn.removeEventListener('click', onLoadMorePress);
       iziToast.info({
