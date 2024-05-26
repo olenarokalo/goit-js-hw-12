@@ -52,6 +52,7 @@ searchForm.addEventListener('submit', async e => {
           'Sorry, there are no images matching your search query. Please try again!',
         position: 'topRight',
       });
+      loadMoreBtn.style.display = 'none';
     } else {
       galleryElement.innerHTML = createGalleryItem(imagesData.hits);
       lightbox.refresh();
