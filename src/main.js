@@ -82,25 +82,37 @@ const onLoadMorePress = async (event, searchQuery) => {
     galleryElement.insertAdjacentHTML('beforeend', createGalleryItem(hits));
     lightbox.refresh();
     totalPages = Math.ceil(totalHits / perPage);
+    console.log(photosCurrentPage);
 
-    if (photosCurrentPage < totalPages) {
-      loadMoreBtn.style.display = 'block';
-    } else {
+    if (photosCurrentPage === totalPages) {
       loadMoreBtn.style.display = 'none';
       loadMoreBtn.removeEventListener('click', onLoadMorePress);
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
       });
-      return;
     }
   } catch (error) {
     console.error('Error loading more photos:', error);
   } finally {
     loader.style.display = 'none';
+    smoothScrollOnLoadMore();
   }
 };
 
 loadMoreBtn.addEventListener('click', () =>
   onLoadMorePress(event, searchQuery)
 );
+
+const smoothScrollOnLoadMore = () => {
+  const lastImg = galleryElement.querySelector('.gallery-item');
+  const imgHeight = lastImg.getBoundingClientRect().height;
+  const scrollHeight = imgHeight * 2;
+  console.log(scrollHeight);
+
+  window.scrollBy({
+    top: imgHeight,
+    left: 0,
+    behavior: 'smooth',
+  });
+};
