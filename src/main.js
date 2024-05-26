@@ -72,18 +72,13 @@ searchForm.addEventListener('submit', async e => {
 const onLoadMorePress = async (event, searchQuery) => {
   try {
     loader.style.display = 'inline-block';
-
     newCurrentPage++;
-
     const { hits, totalHits } = await fetchImages(searchQuery, newCurrentPage);
-
     galleryElement.insertAdjacentHTML('beforeend', createGalleryItem(hits));
-
     lightbox.refresh();
-
     totalPages = Math.ceil(totalHits / perPage);
 
-    if (newCurrentPage < totalPages) {
+    if (newCurrentPage > totalPages) {
       loadMoreBtn.style.display = 'none';
       loadMoreBtn.removeEventListener('click', onLoadMorePress);
       iziToast.info({
