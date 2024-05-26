@@ -78,7 +78,7 @@ const onLoadMorePress = async (event, searchQuery) => {
     lightbox.refresh();
     totalPages = Math.ceil(totalHits / perPage);
 
-    if (newCurrentPage > totalPages) {
+    if (newCurrentPage === totalPages) {
       loadMoreBtn.style.display = 'none';
       loadMoreBtn.removeEventListener('click', onLoadMorePress);
       iziToast.info({
