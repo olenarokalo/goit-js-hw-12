@@ -75,17 +75,16 @@ const onLoadMorePress = async (event, searchQuery) => {
 
     newCurrentPage++;
 
-    const { hits } = await fetchImages(searchQuery, newCurrentPage);
+    const { hits, totalHits } = await fetchImages(searchQuery, newCurrentPage);
 
     galleryElement.insertAdjacentHTML('beforeend', createGalleryItem(hits));
 
     lightbox.refresh();
 
-    totalPages = Math.ceil(imagesData.totalHits / perPage);
+    totalPages = Math.ceil(totalHits / perPage);
 
     if (newCurrentPage < totalPages) {
       loadMoreBtn.style.display = 'none';
-    } else {
       loadMoreBtn.removeEventListener('click', onLoadMorePress);
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
