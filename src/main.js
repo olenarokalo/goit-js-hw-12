@@ -38,6 +38,7 @@ searchForm.addEventListener('submit', async e => {
       position: 'topRight',
     });
     loader.style.display = 'none';
+    loadMoreBtn.style.display = 'none';
     return;
   }
   galleryElement.innerHTML = '';
