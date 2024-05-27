@@ -68,7 +68,6 @@ searchForm.addEventListener('submit', async e => {
     loadMoreBtn.style.display = 'none';
   } finally {
     loader.style.display = 'none';
-
     e.target.reset();
   }
 });
