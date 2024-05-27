@@ -65,9 +65,10 @@ searchForm.addEventListener('submit', async e => {
     }
   } catch (error) {
     console.log(error);
+    loadMoreBtn.style.display = 'none';
   } finally {
     loader.style.display = 'none';
-    loadMoreBtn.style.display = 'none';
+
     e.target.reset();
   }
 });
@@ -89,7 +90,6 @@ const onLoadMorePress = async (event, searchQuery) => {
 
     if (photosCurrentPage === totalPages) {
       loadMoreBtn.style.display = 'none';
-      loadMoreBtn.removeEventListener('click', onLoadMorePress);
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
