@@ -68,7 +68,6 @@ searchForm.addEventListener('submit', async e => {
     loadMoreBtn.style.display = 'none';
   } finally {
     loader.style.display = 'none';
-
     e.target.reset();
   }
 });
@@ -86,10 +85,8 @@ const onLoadMorePress = async (event, searchQuery) => {
     galleryElement.insertAdjacentHTML('beforeend', createGalleryItem(hits));
     lightbox.refresh();
     totalPages = Math.ceil(totalHits / perPage);
-    console.log(photosCurrentPage);
 
     if (photosCurrentPage === totalPages) {
-      loadMoreBtn.style.display = 'none';
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
@@ -97,6 +94,7 @@ const onLoadMorePress = async (event, searchQuery) => {
     }
   } catch (error) {
     console.error('Error loading more photos:', error);
+    loadMoreBtn.style.display = 'none';
   } finally {
     loader.style.display = 'none';
     smoothScrollOnLoadMore();
