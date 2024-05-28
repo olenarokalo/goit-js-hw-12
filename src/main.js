@@ -95,6 +95,7 @@ const onLoadMorePress = async (event, searchQuery) => {
   } catch (error) {
     console.error('Error loading more photos:', error);
     loadMoreBtn.style.display = 'none';
+     loadMoreBtn.style.display = 'none';
   } finally {
     loader.style.display = 'none';
     smoothScrollOnLoadMore();
