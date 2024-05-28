@@ -91,11 +91,12 @@ const onLoadMorePress = async (event, searchQuery) => {
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
       });
+           loadMoreBtn.style.display = 'none';
     }
   } catch (error) {
     console.error('Error loading more photos:', error);
     loadMoreBtn.style.display = 'none';
-     loadMoreBtn.style.display = 'none';
+
   } finally {
     loader.style.display = 'none';
     smoothScrollOnLoadMore();
